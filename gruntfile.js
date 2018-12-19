@@ -67,8 +67,10 @@ module.exports = function( grunt ) {
 	} );
 
 	grunt.registerTask( 'build-react', [ 'webpack:react' ] );
-	grunt.registerTask( 'docs', [ 'api', 'fix-scayt-docs', 'prepare-examples', 'build-react', 'umberto' ] );
-	grunt.registerTask( 'docs-serve', [ 'api', 'fix-scayt-docs', 'prepare-examples', 'build-react', 'umberto', 'connect' ] );
+
+	grunt.registerTask( 'before-build', [ 'api', 'fix-scayt-docs', 'prepare-examples', 'build-react' ] ); // We need this task for multidocs.
+	grunt.registerTask( 'docs', [ 'before-build', 'umberto' ] );
+	grunt.registerTask( 'docs-serve', [ 'docs', 'connect' ] );
 
 	grunt.initConfig( {
 		path: grunt.option( 'path' ) || getCKEditorPath(),
